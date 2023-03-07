@@ -1,0 +1,29 @@
+1、印章
+问题描述：共有n种图案的印章，每种图案的出现概率相同。小A买了m张印章，求小A集齐n种印章的概率。
+思路分析：
+
+```ruby
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+using namespace std;
+
+int main() {
+	int m, n;
+	cin >> n >> m;
+	double arr[21][21] = {0.0};
+	double p = 1.0/n;
+	for(int i=1; i<=m; i++) {
+		for(int j=1; j<=n; j++) {
+			if(i < j) arr[i][j] = 0;
+			else {
+				if(j == 1) arr[i][j] = pow(p, i-1);
+				else arr[i][j] = arr[i-1][j] * j * p + arr[i-1][j-1] * (n-j+1) * p;
+			}
+		}
+	}
+	cout << fixed << setprecision(4);
+	cout << arr[m][n] << endl;
+	return 0;
+} 
+```
